@@ -23,7 +23,7 @@ DAY_VARIANTS = (
 
 HOUR_VARIANTS = (
     u"година",
-    u"годину",
+    u"години",
     u"годин",
     )  #: Forms (1, 2, 5) for noun 'hour'
 
