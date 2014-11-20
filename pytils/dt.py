@@ -11,54 +11,54 @@ from pytils.utils import check_positive
 from pytils.third import six
 
 DAY_ALTERNATIVES = {
-    1: (u"вчера", u"завтра"),
-    2: (u"позавчера", u"послезавтра")
+    1: (u"вчора", u"завтра"),
+    2: (u"позавчора", u"післязавтра")
     }  #: Day alternatives (i.e. one day ago -> yesterday)
 
 DAY_VARIANTS = (
     u"день",
     u"дня",
-    u"дней",
+    u"днів",
     )  #: Forms (1, 2, 5) for noun 'day'
 
 HOUR_VARIANTS = (
-    u"час",
-    u"часа",
-    u"часов",
+    u"година",
+    u"годину",
+    u"годин",
     )  #: Forms (1, 2, 5) for noun 'hour'
 
 MINUTE_VARIANTS = (
-    u"минуту",
-    u"минуты",
-    u"минут",
+    u"хвилину",
+    u"хвилини",
+    u"хвилин",
     )  #: Forms (1, 2, 5) for noun 'minute'
 
-PREFIX_IN = u"через"  #: Prefix 'in' (i.e. B{in} three hours)
-SUFFIX_AGO = u"назад"  #: Prefix 'ago' (i.e. three hours B{ago})
+PREFIX_IN = u"за"  #: Prefix 'in' (i.e. B{in} three hours)
+SUFFIX_AGO = u"тому"  #: Prefix 'ago' (i.e. three hours B{ago})
 
 MONTH_NAMES = (
-    (u"янв", u"январь", u"января"),
-    (u"фев", u"февраль", u"февраля"),
-    (u"мар", u"март", u"марта"),
-    (u"апр", u"апрель", u"апреля"),
-    (u"май", u"май", u"мая"),
-    (u"июн", u"июнь", u"июня"),
-    (u"июл", u"июль", u"июля"),
-    (u"авг", u"август", u"августа"),
-    (u"сен", u"сентябрь", u"сентября"),
-    (u"окт", u"октябрь", u"октября"),
-    (u"ноя", u"ноябрь", u"ноября"),
-    (u"дек", u"декабрь", u"декабря"),
+    (u"січ", u"січень", u"січня"),
+    (u"лют", u"лютий", u"лютого"),
+    (u"бер", u"березень", u"березня"),
+    (u"квт", u"квітень", u"квітня"),
+    (u"трв", u"травень", u"травня"),
+    (u"чер", u"червень", u"червня"),
+    (u"лип", u"липень", u"липня"),
+    (u"срп", u"серпень", u"серпня"),
+    (u"вер", u"вересень", u"вересня"),
+    (u"жвт", u"жовтень", u"жовтня"),
+    (u"лис", u"листопад", u"листопада"),
+    (u"грд", u"грудень", u"грудня"),
     )  #: Month names (abbreviated, full, inflected)
 
 DAY_NAMES = (
-    (u"пн", u"понедельник", u"понедельник", u"в\xa0"),
-    (u"вт", u"вторник", u"вторник", u"во\xa0"),
-    (u"ср", u"среда", u"среду", u"в\xa0"),
-    (u"чт", u"четверг", u"четверг", u"в\xa0"),
-    (u"пт", u"пятница", u"пятницу", u"в\xa0"),
-    (u"сб", u"суббота", u"субботу", u"в\xa0"),
-    (u"вск", u"воскресенье", u"воскресенье", u"в\xa0")
+    (u"пн", u"понеділок", u"понеділок", u"у\xa0"),
+    (u"вт", u"вівторок", u"вівторок", u"у\xa0"),
+    (u"ср", u"середа", u"середу", u"у\xa0"),
+    (u"чт", u"четвер", u"четвер", u"у\xa0"),
+    (u"пт", u"п'ятниця", u"п'ятницю", u"у\xa0"),
+    (u"сб", u"субота", u"суботу", u"у\xa0"),
+    (u"нед", u"неділя", u"неділю", u"у\xa0")
     )  #: Day names (abbreviated, full, inflected, preposition)
 
 
@@ -174,7 +174,7 @@ def distance_of_time_in_words(from_time, accuracy=1, to_time=None):
     return final_str
 
 
-def ru_strftime(format=u"%d.%m.%Y", date=None, inflected=False, inflected_day=False, preposition=False):
+def ua_strftime(format=u"%d.%m.%Y", date=None, inflected=False, inflected_day=False, preposition=False):
     """
     Russian strftime without locale
 
@@ -183,13 +183,13 @@ def ru_strftime(format=u"%d.%m.%Y", date=None, inflected=False, inflected_day=Fa
 
     @param date: date value, default=None translates to today
     @type date: C{datetime.date} or C{datetime.datetime}
-    
+
     @param inflected: is month inflected, default False
     @type inflected: C{bool}
-    
+
     @param inflected_day: is day inflected, default False
     @type inflected: C{bool}
-    
+
     @param preposition: is preposition used, default False
         preposition=True automatically implies inflected_day=True
     @type preposition: C{bool}
@@ -201,12 +201,12 @@ def ru_strftime(format=u"%d.%m.%Y", date=None, inflected=False, inflected_day=Fa
         date = datetime.datetime.today()
 
     weekday = date.weekday()
-    
+
     prepos = preposition and DAY_NAMES[weekday][3] or u""
-    
+
     month_idx = inflected and 2 or 1
     day_idx = (inflected_day or preposition) and 2 or 1
-    
+
     # for russian typography standard,
     # 1 April 2007, but 01.04.2007
     if u'%b' in format or u'%B' in format:
